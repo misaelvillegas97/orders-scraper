@@ -1,6 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import * as path from 'node:path';
-import puppeteer from 'puppeteer';
+import { Browser, launch, Page } from 'puppeteer';
 
 @Injectable()
 export class CencosudB2bService {
@@ -16,7 +16,15 @@ export class CencosudB2bService {
 
   async run() {
     // Prepare puppeteer
-    const browser = await puppeteer.launch();
-    const page = await browser.newPage();
+    const browser: Browser = await launch();
+    const page: Page = await browser.newPage();
+
+    // Login or restore session
+    await this.login(page);
+  }
+
+  async login(page: Page) {
+    // move to main page
+    await page.goto(this.url, { waitUntil: 'networkidle0' });
   }
 }

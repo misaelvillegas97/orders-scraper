@@ -324,6 +324,10 @@ export class ComercioNetService {
       });
   }
 
+  logger(message: string): void {
+    console.log(message);
+  }
+
   // Load cookies from a file if it exists
   private async loadCookies(page: puppeteer.Page): Promise<boolean> {
     try {
@@ -409,9 +413,5 @@ export class ComercioNetService {
     } else {
       throw new Error('Login failed.');
     }
-  }
-
-  logger(message: string): void {
-    console.log(message);
   }
 }
